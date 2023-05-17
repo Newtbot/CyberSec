@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+//embeds for messages 
+const { EmbedBuilder } = require('discord.js');
 //load axios
 const axios = require('axios');
 
@@ -15,7 +17,7 @@ module.exports = {
         method: 'GET',
         url: 'https://www.virustotal.com/api/v3/files/' + hash ,
         headers: {
-          accept: 'application/json',
+          headers: {accept: 'application/json'},
           'x-apikey': process.env.VIRUS_TOTAL_API_KEY
         }
       };
@@ -23,21 +25,13 @@ module.exports = {
       axios
       .request(options)
       .then(function (response) {
-        //console.log(response.data);
-        const name = String(response.data.data.attributes.meaningful_name);
-        const date = String(response.data.data.attributes.creation_date);
-        console.log(name);
-        console.log(date);
-        console.log(response.data.data.attributes.last_analysis_date);
-        console.log(response.data.data.attributes.md5);
-        console.log(response.data.data.attributes.sha256);
-        console.log(response.data.data.attributes.reputation);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-            
 
-
+        console.log(response.data);
     }
+    )
+    .catch(function (error) {
+      console.error(error);
+    }
+    );
+  },
 };
